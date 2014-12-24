@@ -14,8 +14,12 @@ module.exports = (robot) ->
     apiurl = "http://b.hatena.ne.jp/entry/jsonlite/?url=" + encodeURIComponent(url)
     request apiurl, (_, res) ->
       json = JSON.parse(res.body)
-      msg.send "#{json.title}\n#{json.count} users #{json.entry_url}"
-
+      if json
+        msg.send "#{json.title}\n#{json.count} users #{json.entry_url}"
+      else
+        request url, (_, res) ->
+          $ = cheerio.load res.body
+          msg.send $('title').text().replace(/\n/g, '')
   robot.respond /(hb|hatena) (.*)$/i, (msg) ->
     word = msg.match[2]
     apiurl = "http://b.hatena.ne.jp/search/text?q=" + word
