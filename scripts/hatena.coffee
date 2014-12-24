@@ -21,7 +21,7 @@ module.exports = (robot) ->
           $ = cheerio.load res.body
           msg.send $('title').text().replace(/\n/g, '')
   robot.respond /(hb|hatena) (\S+)( (\S+))?$/i, (msg) ->
-    query = msg.match[2]
+    query = encodeURIComponent(msg.match[2])
     # tag or title or text
     target = msg.match[4] || 'tag'
     users = 3
