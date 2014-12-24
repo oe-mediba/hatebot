@@ -1,0 +1,14 @@
+{
+  "name": "hatebot",
+  "version": "0.0.0",
+  "private": true,
+  "author": "oe-mediba <y-oe@mediba.jp>",
+  "description": "A simple helpful robot for hatena bookmark",
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "request": "^2.51.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
