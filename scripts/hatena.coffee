@@ -20,9 +20,15 @@ module.exports = (robot) ->
         request url, (_, res) ->
           $ = cheerio.load res.body
           msg.send $('title').text().replace(/\n/g, '')
-  robot.respond /(hb|hatena) (.*)$/i, (msg) ->
-    word = msg.match[2]
-    apiurl = "http://b.hatena.ne.jp/search/text?q=" + word
+  robot.respond /(hb|hatena) (\S+)( (\S+))?$/i, (msg) ->
+    query = msg.match[2]
+    # tag or title or text
+    target = msg.match[4] || 'tag'
+    users = 3
+    # recent or popular
+    sort = 'recent'
+    apiurl = "http://b.hatena.ne.jp/search/#{target}?q=#{query}&users=#{users}&sort=#{sort}"
+    #msg.send apiurl
     request apiurl + '/', (_, res) ->
       $ = cheerio.load res.body
       sites = []
