@@ -26,7 +26,7 @@ module.exports = (robot) ->
     query = encodeURIComponent(msg.match[2])
     # tag or title or text
     target = msg.match[4] || 'tag'
-    users = 3
+    users = 5
     # recent or popular
     sort = 'recent'
     apiurl = "http://b.hatena.ne.jp/search/#{target}?q=#{query}&users=#{users}&sort=#{sort}"
@@ -43,6 +43,6 @@ module.exports = (robot) ->
         users = li.find('span.users a').text()
         sites.push("#{title} #{url}\n#{users} #{eurl}")
         count++
-        return false if count > 5
+        return false if count > 10
       msg.send msg.random sites
 
