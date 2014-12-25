@@ -3,6 +3,7 @@
 #
 # Commands:
 #   hubot hb <query> - The Original. Queries Hatena Bookmark for <query> and returns a random top result.
+#   hubot <url> - Returns title, hatena bookmark entry url, and users for <url>.
 
 cheerio = require 'cheerio'
 request = require 'request'
@@ -20,6 +21,7 @@ module.exports = (robot) ->
         request url, (_, res) ->
           $ = cheerio.load res.body
           msg.send $('title').text().replace(/\n/g, '')
+
   robot.respond /(hb|hatena) (\S+)( (\S+))?$/i, (msg) ->
     query = encodeURIComponent(msg.match[2])
     # tag or title or text
